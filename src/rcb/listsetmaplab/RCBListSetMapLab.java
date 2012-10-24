@@ -4,18 +4,17 @@ import java.util.*;
 
 /**
  *
- * @author Bob
+ * @author Robert Bath
  */
 public class RCBListSetMapLab {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
         
 //1. Using the Employee class from GenericsAndSets.common, create the necessary 
 //equals(), hashCode(), toString() and compareTo() methods.
-        //done in class
+       
+        
         
         System.out.println("");
         System.out.println("#2");
@@ -28,6 +27,7 @@ public class RCBListSetMapLab {
         Employee e2 = new Employee("Smith", "Sally", "111-11-1111");
         Employee e3 = new Employee("Evans", "Bob", "333-33-3333");
         Employee e4 = new Employee("Mallay", "Fred", "222-22-2222");
+        Employee e5 = new Employee ("Ferguson","Terd", "123-33-2356");
         
         Set<Employee> EmpSet = new HashSet<>();
         
@@ -63,7 +63,7 @@ public class RCBListSetMapLab {
         
         System.out.println(empMap.get("333-33-3333"));
         System.out.println("");
-     
+        
         for(Object key : empMap.keySet()) {
             Employee found = (Employee)empMap.get(key);
             System.out.println(found.toString());
@@ -73,19 +73,37 @@ public class RCBListSetMapLab {
 //4. Store the same four Employee objects in a TreeMap. Demonstrate that sorting 
 //works. Did you remember to override compareTo() from the Comparable interfaces? 
 //Now try using a Comparator from the GenericsAndMaps project (remember you’ll need a utility class).
+      
+        //treemap drops original key (if duplicate entered)
+        
         Map empTree = new TreeMap();
         empTree.put(e1.getSsn(), e1);
         empTree.put(e2.getSsn(), e2);
-        empTree.put(e3.getSsn(), e3);
+        empTree.put(e5.getSsn(), e5);
         empTree.put(e4.getSsn(), e4);
-        
-      
-         
-            
+           
+       
         for(Object key : empTree.keySet()) {
             Employee found = (Employee)empTree.get(key);
             System.out.println(found.toString());
         }
+        
+        System.out.println("");
+        System.out.println("Sort By Last name (convert map to list and uses comparator");
+        Collection<Employee> values = empTree.values();
+        
+        List<Employee> sortByLastName = new ArrayList<Employee>(values);
+        Collections.sort(sortByLastName, new EmployeeByLastName());
+        
+        for(Employee e : sortByLastName) {
+            System.out.println(e);
+        }
+        
+        //Set EmployeeList = new TreeSet(new EmployeeByLastName());
+       
+        
+       // List<Map<String,Employee>> empListMap = new ArrayList<Map<String,Employee>>();
+        
        
         
         System.out.println("");
